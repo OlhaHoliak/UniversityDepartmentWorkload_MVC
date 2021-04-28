@@ -1,0 +1,75 @@
+﻿@model IEnumerable<Data.Models.Teacher>
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Викладачі";
+}
+
+<h1>Список викладачів</h1>
+<p>
+    <a asp-action="Create" class="btn btn-success">Додати нового викладача</a>   
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Birthdate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GenderNavigation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MaritalStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                ...
+            </th>
+            <th>
+                Навантаження
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Birthdate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GenderNavigation.GenderName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaritalStatusNavigation.MaritalStatusName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                <a asp-action="Read" asp-route-id="@item.Id" class="text-info">Деталі</a> |
+                <a asp-action="Update" asp-route-id="@item.Id" class="text-warning">Змінити</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id" class="text-danger">Видалити</a>
+            </td>
+            <td>
+                <a asp-controller="Workloads" asp-action="Teacher" asp-route-id="@item.Id" class="btn btn-light">Навантаження</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+<form asp-action="Index" class="form-inline">
+    <div class="form-group ">
+        <label name="searchName" class="control-label mb-2">Знайти викладача по імені: </label>
+        <input name="searchName" type="text" class="form-control mx-sm-3 mb-2" placeholder="Введіть ім'я"/>
+        <input type="submit" value="Знайти" class="btn btn-primary mb-2" />
+    </div>
+</form>

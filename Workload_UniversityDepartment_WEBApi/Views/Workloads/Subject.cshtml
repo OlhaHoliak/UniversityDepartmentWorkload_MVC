@@ -1,0 +1,78 @@
+﻿@model IEnumerable<Data.Models.DepartmentWorkload>
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "SubjectsWorkload";
+}
+
+<h1>Список викладачів предмета</h1>
+<h3 style="color: darkcyan">
+    @Model.First().Subject.SubjectName
+</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TeacherId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WorkloadId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WorkHours)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <a asp-controller="Workloads" asp-action="Teacher" asp-route-id="@item.TeacherId" class="text-dark">
+                        @Html.DisplayFor(modelItem => item.Teacher.Name)
+                    </a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Workload.WorkloadName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.WorkHours)
+                </td>
+                <td>
+                    <a asp-action="Update" asp-route-id="@item.Id" class="text-warning">Змінити</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="text-danger">Видалити</a>
+                </td>
+            </tr>
+        }
+        <tr>
+            <td colspan="2" class="font-weight-bold">Загальна кількість годин на предмет: </td>
+            <td class="font-weight-bold">
+                @{ int? sum = 0;
+                    foreach (var item in Model)
+                    {
+                        sum += item.WorkHours;
+                    }
+                }
+                @sum
+            </td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
+<div class="d-print-none">
+    <p>
+        <a asp-action="Create" class="btn btn-success">Додати запис</a>
+        <input type="button" value="Друк" onclick="print()" class="btn btn-light" />
+    </p>
+    <p>
+        <a asp-controller="Workloads" asp-action="Index">Список навантаження</a>
+    </p>
+    <p>
+        <a asp-controller="Teachers" asp-action="Index">Список викладачів</a>
+    </p>
+    <p>
+        <a asp-controller="Subjects" asp-action="Index">Список предметів</a>
+    </p>
+</div>

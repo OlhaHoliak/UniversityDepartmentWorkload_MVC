@@ -1,0 +1,62 @@
+﻿@model Data.Models.DepartmentWorkload
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Create DepartmentWorkload";
+}
+
+<h1>Створення запису про навантаження</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="TeacherId" class="control-label"></label>
+                <select asp-for="TeacherId" class="form-control">
+                    @foreach (var item in ViewBag.Teachers)
+                    {
+                        <option value="@item.Id">@item.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="TeacherId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SubjectId" class="control-label"></label>
+                <select asp-for="SubjectId" class="form-control">
+                    @foreach (var item in ViewBag.Subjects)
+                    {
+                        <option value="@item.Id">@item.SubjectName</option>
+                    }
+                </select>
+                <span asp-validation-for="Subject" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WorkloadId" class="control-label"></label>
+                <select asp-for="WorkloadId" class="form-control">
+                    @foreach (var item in ViewBag.Workloads)
+                    {
+                        <option value="@item.Id">@item.WorkloadName</option>
+                    }
+                </select>
+                <span asp-validation-for="WorkloadId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WorkHours" class="control-label"></label>
+                <input asp-for="WorkHours" class="form-control" />
+                <span asp-validation-for="WorkHours" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+<div>
+    <a asp-action="Index">Повернутись до списку</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

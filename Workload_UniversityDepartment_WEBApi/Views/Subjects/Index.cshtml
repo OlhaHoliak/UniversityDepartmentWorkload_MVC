@@ -1,0 +1,38 @@
+﻿@model IEnumerable<Data.Models.Subject>
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Subjects";
+}
+
+<h1>Список предметів</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-success">Додати новий предмет</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SubjectName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SubjectName)
+            </td>
+            <td>
+                @Html.ActionLink("Редагувати", "Update", new { id = item.Id }) |
+                @Html.ActionLink("Видалити", "Delete", new { id = item.Id })
+            </td>
+            <td>
+                <a asp-controller="Workloads" asp-action="Subject" asp-route-id="@item.Id" class="btn btn-light">Переглянути викладачів</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,19 @@
+﻿@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Home Page";
+}
+
+<div >
+    <h3>Кафедра Бухгалтерського обліку та аудиту</h3>
+    <ul class="nav flex-column bg-white mb-0">
+        <li class="nav-item">
+            <a class="nav-link text-dark font-italic" asp-area="" asp-controller="Teachers" asp-action="Index">Викладачі</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark font-italic" asp-area="" asp-controller="Subjects" asp-action="Index">Предмети</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark font-italic" asp-area="" asp-controller="Workloads" asp-action="Index">Навантаження</a>
+        </li>
+    </ul>
+</div>

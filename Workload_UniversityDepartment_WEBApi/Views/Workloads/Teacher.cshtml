@@ -1,0 +1,82 @@
+﻿@model IEnumerable<Data.Models.DepartmentWorkload>
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "TeachersWorkload";
+}
+
+<h1>Список навантаження викладача</h1>
+<h3>
+    <a asp-controller="Teachers" asp-action="Read" asp-route-id="@Model.First().TeacherId" style="color: darkcyan">
+        @Model.First().Teacher.Name
+    </a>
+</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+
+            <th>
+                @Html.DisplayNameFor(model => model.SubjectId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WorkloadId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WorkHours)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <a asp-controller="Workloads" asp-action="Subject" asp-route-id="@item.SubjectId" class="text-dark">
+                        @Html.DisplayFor(modelItem => item.Subject.SubjectName)
+                    </a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Workload.WorkloadName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.WorkHours)
+                </td>
+                <td>
+                    <a asp-action="Update" asp-route-id="@item.Id" class="text-warning">Змінити</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="text-danger">Видалити</a>
+                </td>
+            </tr>
+        }
+        <tr>
+            <td colspan="2" class="font-weight-bold">Загальна кількість годин у викладача: </td>
+            <td class="font-weight-bold">
+                @{ int? sum = 0;
+                    foreach (var item in Model)
+                    {
+                        sum += item.WorkHours;
+                    }
+                }
+                @sum
+            </td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
+<div class="d-print-none">
+    <p>
+        <a asp-action="Create" class="btn btn-success">Додати запис</a>
+        <input type="button" value="Друк" onclick="print()" class="btn btn-light" />
+    </p>
+
+    <p>
+        <a asp-controller="Workloads" asp-action="Index">Список навантаження</a>
+    </p>
+    <p>
+        <a asp-controller="Teachers" asp-action="Index">Список викладачів</a>
+    </p>
+    <p>
+        <a asp-controller="Subjects" asp-action="Index">Список предметів</a>
+    </p>
+</div>
